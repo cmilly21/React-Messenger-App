@@ -1,0 +1,41 @@
+body, html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+p {
+ margin: 0;
+}
+
+button {
+  min-height: 1em;
+}
+
+.mainButton {
+  background: none;
+  border: red;
+  
+}
+
+input {
+	border: 1px solid rgba(34, 36, 38, 0.15);
+	border-radius: 0.3em;
+	font-size: 1em;
+	line-height: 1.2em
+}
+
+.App {
+  height: 100vh;
+  overflow: scroll;
+}
