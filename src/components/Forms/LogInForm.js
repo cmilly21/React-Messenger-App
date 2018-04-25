@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import AuthInput from './AuthInput';
 import MainButton from '../common/MainButton';
 import ErrorMessage from './ErrorMessage';
@@ -44,10 +43,3 @@ export default function LoginForm({ switchForm, handleChange, handleSubmit, erro
 		</div>
 	);
 }
-
-// LoginForm.propTypes = {
-// 	switchForm: PropTypes.func.isRequired,
-// 	handleChange: PropTypes.func.isRequired,
-// 	handleSubmit: PropTypes.func.isRequired,
-// 	errorMessage: PropTypes.string,
-// }

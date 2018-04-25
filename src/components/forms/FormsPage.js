@@ -23,12 +23,11 @@ export default class FormsContainer extends Component {
 	async getUser() {
 		try {
 			const data = await AuthService.authUser();
-			console.log(data);
 			if (!data.auth) return;
 			this.setState({ isUserLoggedIn: data.auth });
 
 		} catch (err) {
-			console.log(err.response);
+			this.setState({ errorMessage: err.response.data })
 		}
 	}
 
@@ -84,10 +83,7 @@ export default class FormsContainer extends Component {
 	}
 
 	render() {
-		if (this.state.isUserLoggedIn) {
-			console.log('Redirect to message component');
-			return <Redirect to='/message' />
-		}
+		if (this.state.isUserLoggedIn) return <Redirect to='/message' />
 
 		return (
 			<main className='formDashboardContainer' >

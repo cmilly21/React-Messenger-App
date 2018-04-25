@@ -8,10 +8,9 @@ import { Redirect } from 'react-router-dom';
 
 import AuthService from '../../AuthService';
 import io from 'socket.io-client';
-const socketURL = '/';
+const socketURL = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080'
 
 export default class MessagePage extends PureComponent {
-
 
 	state = {
 		isUserLoggedIn: true,
@@ -36,21 +35,17 @@ export default class MessagePage extends PureComponent {
 
 	componentWillUnmount() {
 		const { socket, user } = this.state;
-		console.log(socket, user);
 		if (socket && user) {
 			socket.emit('USER_LOGOUT', user);
-			console.log('Disconnecting!');
 		}
 	}
 
 	async authUser() {
 		try {
 			const data = await AuthService.authUser();
-			console.log(data)
 			if (!data.auth || !data.user) return this.setState({ isUserLoggedIn: false });
 			this.initSocket(data.user);
 		} catch (err) {
-			console.log(err);
 			this.setState({ isUserLoggedIn: false });
 		}
 	}
@@ -70,13 +65,11 @@ export default class MessagePage extends PureComponent {
 		});
 
 		socket.on('connect', () => {
-			console.log('Socket.io connected!');
 			socket.emit('USER_CONNECTED', user);
 			socket.emit('COMMUNITY_CHAT', this.resetChat);
 		});
 
 		socket.on('reconnect', (attemptNum) => {
-			console.log('Socket reconnected!');
 			socket.emit('USER_CONNECTED', user);
 			this.setState({
 				socket: socket,
