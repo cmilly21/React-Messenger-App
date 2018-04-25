@@ -80,8 +80,6 @@ export default class MessagePage extends PureComponent {
 		socket.on('NEW_CONNECTED_USERS', (communityChat) => {
 			const { chats } = this.state;
 
-			console.log('oldCommunityChat =>', chats);
-
 			const newChats = chats.map(chat => {
 				if (chat.id === 'Community') {
 					return chat = communityChat;
@@ -89,7 +87,6 @@ export default class MessagePage extends PureComponent {
 				return chat;
 			});
 
-			console.log('newChats =>', communityChat);
 
 			this.setState({ chats: newChats });
 		});
@@ -98,8 +95,6 @@ export default class MessagePage extends PureComponent {
 
 	handleActiveChatChange = (e, chatId) => {
 		e.preventDefault();
-
-		console.log(chatId);
 
 		this.setState({ activeChat: chatId });
 	}
@@ -110,7 +105,7 @@ export default class MessagePage extends PureComponent {
 
 	addChat = (chat, reset = false) => {
 		const { socket, chats } = this.state;
-		console.log('addChat', chat);
+
 		const newChats = reset ? [ chat ] : [ ...chats, chat ];
 		this.setState({ chats: newChats });
 
@@ -129,9 +124,6 @@ export default class MessagePage extends PureComponent {
 		return message => {
 			const { chats } = this.state;
 
-			console.log(chatId);
-			console.log(message);
-
 			let newChats = chats.map(chat => {
 				if (chat.id === chatId) {
 					chat.messages.push(message);
@@ -139,7 +131,6 @@ export default class MessagePage extends PureComponent {
 				}
 			});
 
-			console.log('addMessageToChat =>', newChats);
 			this.setState({ chats: newChats })
 		}
 	}

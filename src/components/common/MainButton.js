@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import '../../css/MainButton.css';
 
 export default function MainButton({ containerClass, buttonClass, buttonName, buttonValue }) {
@@ -14,10 +13,3 @@ export default function MainButton({ containerClass, buttonClass, buttonName, bu
 		</div>
 	);
 };
-
-// MainButton.propTypes = {
-// 	containerClass: PropTypes.string.isRequired,
-// 	buttonClass: PropTypes.string.isRequired,
-// 	buttonName: PropTypes.string.isRequired,
-// 	buttonValue: PropTypes.string.isRequired,
-// }
