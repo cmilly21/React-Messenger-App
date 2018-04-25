@@ -1,12 +1,14 @@
 import React from 'react';
+// import propType from 'prop-types';
+import '../../css/ErrorMessage.css';
 
-const ErrorMessage = ({ errMsg }) => {
+export default function ErrorMessage({ errorMessage }) {
 	return (
 		<div className='errorMessage'>
-			<i className='fas fa-exclamation-circle'></i>
-			<p>{ errMsg }</p>
+			<p className='errorText'>
+				<i className='errorIcon fas fa-exclamation-circle'></i>
+				{ errorMessage }
+			</p>
 		</div>
 	);
 }
-
-export default ErrorMessage

@@ -1,16 +1,25 @@
-// connection to the db
 require('dotenv').config();
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 
-mongoose.connect(`mongodb://${ process.env.DB_USER }:${ process.env.DB_PASSWORD }${ process.env.DB_HOST }/${ process.env.DB_NAME }`);
-mongoose.Promise = global.Promise;
-
-db.on('error', (err) => {
-	console.error(`Mongoose connection error: ${ err }`);
-	process.exit(1);
-});
+mongoose.connect(process.env.DB_CONNECTION)
+	// mongoose.connect(process.env.LOCAL_DB_CONNECTION)
+	.catch((err) => {
+		console.error(err);
+		mongoose.disconnect();
+	});
 
 db.once('open', () => {
-	console.log(`Connected to MongoDB : ${ process.env.DB_NAME }`);
+	console.log(`MongoDB connection opened!`);
+});
+
+db.on('disconnect', () => {
+	console.log('MongoDB connection is disconnected.');
+});
+
+process.on('SIGINT', () => {
+	db.close(() => {
+		console.warn('MongoDB connection terminated.');
+		process.exit(1);
+	});
 });

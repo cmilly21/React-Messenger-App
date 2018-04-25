@@ -1,9 +1,25 @@
-.message {
-	width: 50%;
+.messageContainer {
 	margin: 16px 0;
+	width: 50%;
+}
+
+.messageSender {
+	text-transform: capitalize;
+	color: #333;
+}
+
+.messageText {
 	padding: 16px;
 	background:lightblue;
 	border-radius: 6px;
+	color: white;
+}
+
+.message:last-of-type {
+}
+
+.messageRight {
+	margin-left: auto
 }
 
 .message p {

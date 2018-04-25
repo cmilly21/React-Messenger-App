@@ -1,13 +1,29 @@
 body, html {
   box-sizing: border-box;
+  height: 100%;
 }
 
 body {
+  min-height: 100%;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   font-size: 16px;
   color: #333;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
+
+.page {
+  height: 100%;
+  width: 100%;
+  display: flex;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -18,24 +34,103 @@ p {
  margin: 0;
 }
 
+a, input {
+  transition: 0.25s
+}
+
+a {
+  color: rgba(255, 85, 85, 1);
+}
+
+a:hover {
+  color: rgba(117,103,167,1) !important;
+  text-decoration: underline;
+}
+
 button {
   min-height: 1em;
 }
 
-.mainButton {
+.mainButton, .secondaryButton {
+  width: 100%;
+  padding: 0.75em 1em;
+  font-size: 1.1em;
+  font-weight: 300;
+  color: white;
+}
+
+.secondaryButton {
+  border: 2px solid #fff;
+  color: #fff;
   background: none;
-  border: red;
-  
+  font-weight: bold;
 }
 
 input {
 	border: 1px solid rgba(34, 36, 38, 0.15);
 	border-radius: 0.3em;
 	font-size: 1em;
-	line-height: 1.2em
+  line-height: 1.2em;
 }
 
-.App {
-  height: 100vh;
-  overflow: scroll;
+input:hover, a {
+  cursor: pointer;
+}
+
+input[type='button']:hover, input[type='submit']:hover {
+  background:  	rgba(117,103,167,1);
+  border-color: rgba(117,103,167,1);
+}
+
+input[type='text']:hover, input[type='password']:hover {
+  cursor: text;
+}
+
+input:focus {
+  outline: none;
+}
+
+
+input[type='password']:focus, input[type='text']:focus {
+	box-shadow: inset 0 1px 2px rgba(255,85,85,0.2);
+	border-color: rgba(255, 85, 85, 1);
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes icon-bob {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(4px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  75% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);    
+  }
+  100% {
+    transform: scale(1);
+  }
 }

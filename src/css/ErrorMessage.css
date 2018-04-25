@@ -1,0 +1,17 @@
+.errorMessage {
+	position: relative;
+	padding-top: 30px;
+	display: flex;
+	justify-content: center;
+	font-size: 1.2em;
+}
+
+.errorIcon {
+	position: absolute;
+	left: -24px;
+}
+
+.errorText {
+	position: relative;
+	text-transform: capitalize;
+}

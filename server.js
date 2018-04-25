@@ -1,23 +1,42 @@
-// server
 require('dotenv').config();
-const app = require('./server/app');
-const PORT = process.env.PORT;
+const express = require('express');
+const app = express();
+const server = require('http').Server(app);
+const path = require('path');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const io = require('socket.io')(server);
+const PORT = process.env.PORT || 8080;
 
-const server = app.listen(PORT, (req, res) => {
-	console.log(`Server listening on port ${ PORT }`);
+const db = require('./server/db/db');
+const users = require('./server/routes/users');
+const auth = require('./server/routes/auth');
+const SocketManager = require('./server/controllers/SocketManager');
+
+app.use(morgan('dev'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+	res.header('Access-Control-Allow-Origin', 'https://schoolmessageapp.herokuapp.com/');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	next();
 });
 
-const io = require('socket.io')(server);
+app.use('/users', users);
+app.use('/auth', auth);
 
-io.on('connection', (client) => {
-	console.log('User connected!');
+app.use(express.static(path.join(__dirname, 'build')));
 
-	client.on('SEND_MESSAGE', (msg) => {
-		console.log(msg);
-		io.emit('RECEIVE_MESSAGE', msg);
-	});
+app.get('/*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
-	client.on('disconnect', () => {
-		console.log('User disconnected!');
-	});
+io.on('connection', (socket) => {
+	SocketManager(socket, io);
+});
+
+server.listen(PORT, (req, res) => {
+	console.log(`Server listening on port ${ PORT }`);
 });

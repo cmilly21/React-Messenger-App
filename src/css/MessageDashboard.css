@@ -1,5 +1,15 @@
 .messageDashboard {
+	width: 80%;
+	position: relative;
+	margin-left: auto;
 	display: flex;
 	flex-wrap: wrap;
-	height: 100%;
+	transition: 0.5s;
+}
+
+.messageListContainer {
+	height: calc(100% - 200px);
+	width: 100%;
+	padding: 0% 15%;
+	overflow: auto;
 }

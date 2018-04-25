@@ -1,7 +1,5 @@
 .messageInputContainer {
-	position: fixed;
-	bottom: 0;
-	height: 10%;
+	height: 100px;
 	width: 100%;
 	text-align: center;
 	display: flex;
@@ -11,33 +9,26 @@
 }
 
 .messageInput {
+	padding: 16px 24px;
 	border-style: solid;
 	border-color:rgba(51, 51, 51, 0.4);
 	border-image: none;
-	width: 40%;
+	width: 30%;
 	border-radius: 4px 0 0 4px;
 	border-right: none;
 }
 
 .submitInput {
+	padding: 16px 0px;
 	border-left: none;
 	width: 10%;
+	min-width: 80px;
 	background: rgba(255, 85, 85, 1);
 	color: white;
 	border-radius: 0 4px 4px 0;
-}
-
-.submitInput:focus, .messageInput:focus {
-	outline: none;
-	box-shadow: inset 0 1px 2px rgba(255,85,85,0.2);
-	border-color: rgba(255, 85, 85, 1);
-}
-
-.submitInput:hover {
-	cursor: pointer;
+	font-size: 1.2em;
 }
 
 .submitInput, .messageInput {
-	padding: 16px;
-	font-size: 1em;
+	font-size: 1.1em;
 }

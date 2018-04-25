@@ -5,9 +5,10 @@
 
 # testing
 
-
 # production
-/build
+
+#VS code
+.vscode
 
 # misc
 .DS_Store

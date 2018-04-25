@@ -1,20 +1,11 @@
 import React from 'react';
 import '../../css/Header.css';
 
-const Header = ({ handleLogout }) => {
+export default function Header() {
+
 	return (
-		<div className="Header">
-			<div>
-				<input
-					className='logoutButton'
-					type='button'
-					value='Logout'
-					onClick={ (e) => handleLogout(e) }
-				/>
-			</div>
+		<div className='Header' >
 			<h1>Quick Messaging App</h1>
 		</div>
 	);
 }
-
-export default Header
