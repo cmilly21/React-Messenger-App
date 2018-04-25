@@ -18,7 +18,6 @@ export default class SideBarContainer extends PureComponent {
 	handleTabChange = (e, tabName) => {
 		e.preventDefault();
 
-		console.log(tabName);
 		this.setState({ whichTab: tabName });
 	}
 

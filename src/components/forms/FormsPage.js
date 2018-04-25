@@ -56,6 +56,7 @@ export default class FormsContainer extends Component {
 				this.handleSubmitFailure
 			);
 		} else {
+
 			if (password !== confirmPassword) return this.setState({ errMsg: `Passwords don't match.` });
 
 			AuthService.userSignUp(
@@ -78,11 +79,11 @@ export default class FormsContainer extends Component {
 	}
 
 	handleSubmitFailure = (errMsg) => {
-		console.log(errMsg);
 		this.setState({ errorMessage: errMsg });
 	}
 
 	render() {
+
 		if (this.state.isUserLoggedIn) return <Redirect to='/message' />
 
 		return (
@@ -106,5 +107,4 @@ export default class FormsContainer extends Component {
 			</main>
 		);
 	}
-
 }

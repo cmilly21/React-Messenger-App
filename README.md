@@ -17,10 +17,11 @@
 ## Pages
 ---
 
-	#### 1. Forms Page 
-		+ Login Form View
-		+ Signup Form View
-	#### 2. Message Dashboard Page
+1. **Forms Page**
+	+ Login Form View
+	+ Signup Form View
+
+2. **Message Dashboard Page**
 
 
 ## Models
@@ -53,6 +54,11 @@
 
 + #### JWT Token Model
 
+|
+|
+|
+|
+
 ## REST API Guide
 ---
 
@@ -60,7 +66,7 @@
 
 	+ **route:** /users/login
 	+ **method:** POST
-	+ **data:** [USER] 
+	+ **data:** [USER MODEL] 
 	{
 		name: username
 		password: password
@@ -72,7 +78,7 @@
 
 	+ **route:** /users/signup
 	+ **method:** POST
-	+ **data:** [USER]
+	+ **data:** [USER MODEL]
 	{
 		name: username
 		password: password
@@ -83,7 +89,7 @@
 
 	+ **route:** /auth/autheticate
 	+ **method:** POST
-	+ **data:** [JWT TOKEN]
+	+ **data:** [JWT TOKEN MODEL]
 	{
 		token: jwt_token
 	}
@@ -100,7 +106,10 @@
 
 ## To Do List
 
-+ Messages delete when a new user connects 
++ Messages dashboard messages reset when a new user connects while you are logged in on message dashboard
++ Private chat functionality
+	+ Active User list side bar changes chat when you click user
+	+ Need to add socket.io to emit private messages
 
 colors:
 

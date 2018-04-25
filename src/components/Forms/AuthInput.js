@@ -3,7 +3,6 @@ import React from 'react';
 
 export default function AuthInput({ autoFocus, handleChange, iconName, inputType, placeholder, name }) {
 
-
 	const inputComponent = autoFocus ? (
 		<input
 			autoFocus
