@@ -1,17 +1,17 @@
 import React from 'react';
-import '../../css/ActiveUser.css';
+import './ActiveUser.css';
 import Icon from '../common/Icon';
 
 export default function ActiveUser({ user, setActiveChat }) {
 	return (
-		<div className='activeUser' onClick={ (e) => setActiveChat(e, user.socketId) }>
+		<div className='activeUserContainer' onClick={ (e) => setActiveChat(e, user.socketId) }>
 			<Icon
 				onClickFunction={ (e) => e.preventDefault() }
 				iconContainerClass='chatsIconContainer'
 				iconClass='fas fa-comments chatsIcon'
 				iconName='COMMUNITY_CHAT'
 			/>
-			<p>{ user.name }</p>
+			<p className='activeUser'>{ user.name }</p>
 		</div>
 	)
 }

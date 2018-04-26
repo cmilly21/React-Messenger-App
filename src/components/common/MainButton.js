@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/MainButton.css';
+import './MainButton.css';
 
 export default function MainButton({ containerClass, buttonClass, buttonName, buttonValue }) {
 	return (

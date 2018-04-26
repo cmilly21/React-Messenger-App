@@ -6,6 +6,9 @@
 # testing
 
 # production
+/public
+/src
+README.md
 
 #VS code
 .vscode

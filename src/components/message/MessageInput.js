@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import '../../css/MessageInput.css';
+import './MessageInput.css';
 
 // const MessageInput = ({ inputValue, handleChange, handleSubmit }) => {
 export default class MessageInput extends Component {

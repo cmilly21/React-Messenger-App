@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
-import '../../css/MessageDashboard.css';
+import './MessagePage.css';
 import Header from '../common/Header';
 import SideBarContainer from '../sidebar/SideBarContainer';
 import MessagesList from './MessagesList';
 import MessageInput from './MessageInput';
+import Menu from '../Menu/Menu';
 import { Redirect } from 'react-router-dom';
 
 import AuthService from '../../AuthService';
@@ -17,7 +18,8 @@ export default class MessagePage extends PureComponent {
 		socket: null,
 		user: null,
 		activeChat: 'Community',
-		chats: []
+		chats: [],
+		isMenuOpen: false
 	}
 
 	componentDidMount() {
@@ -130,21 +132,31 @@ export default class MessagePage extends PureComponent {
 					return chat;
 				}
 			});
-
 			this.setState({ chats: newChats })
 		}
 	}
 
+	toggleMenu = (e) => {
+		e.preventDefault();
+		this.setState({ isMenuOpen: !this.state.isMenuOpen })
+	}
+
 	render() {
-		const { user, socket, activeChat, chats } = this.state;
+		const { user, socket, activeChat, chats, isMenuOpen } = this.state;
 		if (!this.state.isUserLoggedIn) return <Redirect to='/' />;
 
 		return (
 			<div className='page' >
+				<Menu
+					isMenuOpen={ isMenuOpen }
+					toggleMenu={ this.toggleMenu }
+				/>
 				<SideBarContainer
 					user={ user }
 					activeChat={ activeChat }
 					chats={ chats }
+					isMenuOpen={ isMenuOpen }
+					toggleMenu={ this.toggleMenu }
 					handleActiveChatChange={ this.handleActiveChatChange }
 					handleLogout={ this.handleLogout }
 				/>

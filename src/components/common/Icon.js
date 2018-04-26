@@ -1,6 +1,6 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
-import '../../css/Icon.css';
+import './Icon.css';
 
 export default function Icon({ onClickFunction, iconContainerClass, iconClass, iconName }) {
 	return (

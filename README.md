@@ -3,15 +3,15 @@
 ## About 
 ---
 
-	This project was built for a 2nd semester class project. I used React.js, Express.js, MongoDB, and Node.js (MERN) to build this app. It also includes Socket.io to handle the messaging capabilities. 
+This project was built for a 2nd semester class project. I used React.js, Express.js, MongoDB, and Node.js (MERN) to build this app. It also includes Socket.io to handle the messaging capabilities. 
 
 
 ## Getting Started
 ---
 
-	+ **Development** => npm run dev
-	+ **Production** => npm start
-	+ **Create Production build** => npm run build 
++ **Development** => npm run dev
++ **Production** => npm start
++ **Create Production build** => npm run build 
 
 
 ## Pages
@@ -58,6 +58,7 @@
 |
 |
 |
+
 
 ## REST API Guide
 ---

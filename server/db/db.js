@@ -2,8 +2,9 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 
-mongoose.connect(process.env.DB_CONNECTION)
-	// mongoose.connect(process.env.LOCAL_DB_CONNECTION)
+const connectionString = process.env.NODE_ENV === 'production' ? process.env.DB_CONNECTION : 'mongodb://localhost:27017';
+
+mongoose.connect(connectionString)
 	.catch((err) => {
 		console.error(err);
 		mongoose.disconnect();

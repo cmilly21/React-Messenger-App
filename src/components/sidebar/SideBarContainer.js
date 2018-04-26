@@ -1,60 +1,53 @@
 import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
-import '../../css/SideBarContainer.css'
+import './SideBarContainer.css'
 import ActiveUser from './ActiveUser';
 import Icon from '../common/Icon';
 
 export default class SideBarContainer extends PureComponent {
 
-	state = {
-		whichTab: 'SETTINGS',
-	}
-
-	// setActiveChat = (e, activeChat) => {
-	// 	console.log(activeChat)
-	// 	// this.setState({ activeChat });
-	// }
-
-	handleTabChange = (e, tabName) => {
-		e.preventDefault();
-
-		this.setState({ whichTab: tabName });
-	}
-
 	render() {
-		const { user, activeChat, chats, handleActiveChatChange, handleLogout } = this.props;
+		const { user, activeChat, chats, isMenuOpen, toggleMenu, handleActiveChatChange, handleLogout } = this.props;
 
-		let activeUserComponents;
-
-		chats.forEach(chat => {
-
-			activeUserComponents = chat.users.map(chatUser => {
-				if (chatUser.name === user.name) return;
-				return <ActiveUser
-					key={ chatUser._id }
-					user={ chatUser }
-					setActiveChat={ handleActiveChatChange }
-				/>
-			});
-		});
+		let sidebarBarContainerClass = isMenuOpen ? 'SideBarContainer closeSideBar' : 'SideBarContainer';
 
 		return (
-			<aside className='sideBarContainer' >
-				<div className='sideBarHeader'>
-					<h3 className='username'>{ user ? user.name : null }</h3>
+			<aside className={ sidebarBarContainerClass } >
+				<div className='SideBarHeader'>
 					<Icon
-						onClickFunction={ handleLogout }
-						iconContainerClass='logoutIconContainer'
-						iconClass='logoutIcon'
-						iconName='eject'
+						onClickFunction={ toggleMenu }
+						iconContainerClass='userIconContainer'
+						iconClass='userIcon'
+						iconName='user'
 					/>
+					<h2 className='username' onClick={ toggleMenu }>
+						{ user ? user.name : null }
+					</h2>
 				</div>
-				<div className='activeUserTitle'>
+				<div className='sidebarSubHeader'>
 					<h3>User's Online</h3>
 				</div>
 				<div className='activeUsers'>
 					<div className='activeUsersList'>
-						{ activeUserComponents }
+						{
+							chats.map(chat => {
+
+								const communityChatUser = {
+									_id: 'CommunityChat',
+									name: 'Community Chat',
+									socketId: 'CommunityChat'
+								};
+
+								let newActiveUsers = [ communityChatUser, ...chat.users ]
+								return newActiveUsers.map(activerUser => {
+									if (activerUser.name !== user.name)
+										return <ActiveUser
+											key={ activerUser._id }
+											user={ activerUser }
+											setActiveChat={ (e) => e.preventDefault() /* handleActiveChatChange */ }
+										/>
+								});
+							})
+						}
 					</div>
 				</div>
 			</aside>
