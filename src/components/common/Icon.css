@@ -1,0 +1,12 @@
+.chatsIcon {
+	vertical-align: middle;
+	margin-right: 8px;
+}
+
+.userIcon {
+	margin-right: 8px; 
+}
+
+.userIcon:hover, .closeMenuIcon:hover {
+	cursor: pointer;
+}

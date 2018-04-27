@@ -1,20 +1,22 @@
-.activeUser {
+.activeUserContainer {
 	width: 100%;
+	margin: auto;
 	padding: 16px 0px;
-	text-align: center;
 	color: #fff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-.activeUser p {
+	transition: 0.25s;
 	text-transform: capitalize;
 	font-size: 1.2em;
 	font-weight: 500;
 }
 
-.activeUser:hover {
+.activeUserContainer:hover {
 	cursor: pointer;
-	background: rgba(229,76,76,0.8)
+	background: var(--main-shade);
+}
+
+.activeUser {
+
 }

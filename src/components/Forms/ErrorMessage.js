@@ -1,6 +1,5 @@
 import React from 'react';
-// import propType from 'prop-types';
-import '../../css/ErrorMessage.css';
+import './ErrorMessage.css';
 
 export default function ErrorMessage({ errorMessage }) {
 	return (

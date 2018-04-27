@@ -6,6 +6,7 @@ module.exports = {
 	userLogin: (req, res, next) => {
 		let name = req.body.name;
 		let password = req.body.password;
+
 		User.findOne({ name: name }, (err, user) => {
 			if (err) return res.status(500).json({ auth: false, message: 'There was a problem with the server.', errMsg: err });
 			if (!user) return res.status(404).json({ auth: false, message: 'User doesn\'t exist.', errMsg: err });
@@ -33,10 +34,7 @@ module.exports = {
 		const userId = req.body.user._id;
 
 		User.findById(userId, (err, user) => {
-			if (err) {
-				console.log(err);
-				return res.status(500).json({ auth: false, message: 'There was a problem with the server.' });
-			}
+			if (err) return res.status(500).json({ auth: false, message: 'There was a problem with the server.' });
 			if (!user) return res.status(404).json({ auth: false, message: 'No user found.' });
 
 			res.status(200).json({
@@ -51,7 +49,7 @@ module.exports = {
 	updateUserProfile: (req, res) => {
 		let userId = req.params.userid;
 
-		UserModel.findByIdAndUpdate(userId, req.body, { new: true }, (err, user) => {
+		User.findByIdAndUpdate(userId, req.body, { new: true }, (err, user) => {
 			if (err) res.status(500).json('There was a problem updating the user');
 			res.status(200).json(user);
 		});

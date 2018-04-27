@@ -1,0 +1,7 @@
+.messageListContainer {
+	height: calc(100% - 200px);
+	width: 100%;
+	padding: 0% 15%;
+	overflow: auto;
+	background: white;
+}
