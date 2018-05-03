@@ -1,0 +1,72 @@
+.SideBarContainer {
+	position: relative;
+	background: var(--main-color);
+	width: 25%;
+	color: white;
+	box-shadow: 2px 0px 10px rgba(51,51,51, 0.6);
+	z-index: 100;
+}
+
+.SideBarHeader {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100px;
+	width: calc(100% + 4px);
+	background: var(--main-shade);
+	margin-right: -4px;
+	box-shadow: 0px 4px 10px rgba(51,51,51, 0.6); 
+	font-size: 1.4em;
+	text-transform: uppercase;
+	z-index: 10;
+}
+
+.username {
+	text-transform: capitalize;
+}
+
+.username:hover {
+	cursor: default;	
+}
+
+.sidebarSubHeader{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: calc(100% + 2px);
+	height: 75px;
+	margin-right: -2px; 
+	background: var(--main-shade);
+	text-align: center;
+	box-shadow: 0px 4px 10px rgba(51,51,51, 0.6);
+	z-index: 5;
+	transition: 1s;
+}
+
+.sidebarSubHeader h3 {
+	white-space: nowrap;
+}
+
+.sidebarSubHeader h3:hover {
+	cursor: default;
+}
+
+.animationContainer {
+	height: calc(100% - 175px);
+	animation: fadeIn 0.5s linear;
+	background: var(--main-color);
+}
+
+.logoutContainer {
+	background: rgba(229,76,76,1);
+	height: 75px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	font-size: 1.4em;
+	text-align: center;
+	box-shadow: 1px -1px 10px rgba(51,51,51, 0.6);
+	margin-right: -2px;
+	z-index: 100;
+}

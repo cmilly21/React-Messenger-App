@@ -3,15 +3,15 @@
 ## About 
 ---
 
-	This project was built for a 2nd semester class project. I used React.js, Express.js, MongoDB, and Node.js (MERN) to build this app. It also includes Socket.io to handle the messaging capabilities. 
+This project was built for a 2nd semester class project. I used React.js, Express.js, MongoDB, and Node.js (MERN) to build this app. It also includes Socket.io to handle the messaging capabilities. 
 
 
 ## Getting Started
 ---
 
-	+ **Development** => npm run dev
-	+ **Production** => npm start
-	+ **Create Production build** => npm run build 
++ **Development** => npm run dev
++ **Production** => npm start
++ **Create Production build** => npm run build 
 
 
 ## Pages
@@ -59,6 +59,10 @@
 |
 |
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 ## REST API Guide
 ---
 
@@ -106,10 +110,10 @@
 
 ## To Do List
 
-+ Messages dashboard messages reset when a new user connects while you are logged in on message dashboard
++ Add/Delete friends from a 'User' model
 + Private chat functionality
-	+ Active User list side bar changes chat when you click user
-	+ Need to add socket.io to emit private messages
+	+ Active User list side bar changes/makes a new chat when you click and 'activerUser'
+
 
 colors:
 

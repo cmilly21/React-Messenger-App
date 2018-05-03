@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import '../../css/MessageInput.css';
+import './MessageInput.css';
 
 // const MessageInput = ({ inputValue, handleChange, handleSubmit }) => {
 export default class MessageInput extends Component {
@@ -9,12 +8,18 @@ export default class MessageInput extends Component {
 		message: '',
 	}
 
+	shouldComponentUpdate(prevProps, prevState) {
+		if (prevState.message !== this.state.message) return true;
+
+		return false;
+	}
+
 	handleMessageChange = (e) => {
 		e.preventDefault()
 
-		this.setState({
-			message: e.target.value,
-		});
+		// console.log('onChange: Message Input');
+
+		this.setState({ message: e.target.value });
 	}
 
 	sendMessage = (e) => {
@@ -23,17 +28,21 @@ export default class MessageInput extends Component {
 		const { message } = this.state;
 		const { activeChat, socket, user } = this.props;
 
+		if (message < 1) return console.log(`Message can't be blank`);
+
 		socket.emit('MESSAGE_SENT', activeChat, user.name, message);
 		this.setState({ message: '' });
 	}
 
 	render() {
+		// console.log('Render: Message Input');
 		return (
 			<form
 				className='messageInputContainer'
 				onSubmit={ this.sendMessage }>
 				<input
 					autoFocus
+					min
 					className='messageInput'
 					type='text'
 					placeholder='Message...'
@@ -41,7 +50,6 @@ export default class MessageInput extends Component {
 					onChange={ this.handleMessageChange }
 				/>
 				<input
-					disabled={ this.state.message < 1 }
 					className='submitInput'
 					type='submit'
 					value='Send'

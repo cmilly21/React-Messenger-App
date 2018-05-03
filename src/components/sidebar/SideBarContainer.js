@@ -1,61 +1,63 @@
 import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
-import '../../css/SideBarContainer.css'
-import ActiveUser from './ActiveUser';
+import './SideBarContainer.css';
 import Icon from '../common/Icon';
+import ActiveUsersList from './ActiveUsersList';
+import SettingsMenu from '../Menu/SettingsMenu';
 
 export default class SideBarContainer extends PureComponent {
 
 	state = {
-		whichTab: 'SETTINGS',
+		isMenuOpen: false
 	}
 
-	// setActiveChat = (e, activeChat) => {
-	// 	console.log(activeChat)
-	// 	// this.setState({ activeChat });
-	// }
-
-	handleTabChange = (e, tabName) => {
+	handleMenuSwitch = (e) => {
 		e.preventDefault();
 
-		this.setState({ whichTab: tabName });
+		this.setState((prevState) => ({ isMenuOpen: !prevState.isMenuOpen }));
 	}
 
 	render() {
-		const { user, activeChat, chats, handleActiveChatChange, handleLogout } = this.props;
-
-		let activeUserComponents;
-
-		chats.forEach(chat => {
-
-			activeUserComponents = chat.users.map(chatUser => {
-				if (chatUser.name === user.name) return;
-				return <ActiveUser
-					key={ chatUser._id }
-					user={ chatUser }
-					setActiveChat={ handleActiveChatChange }
-				/>
-			});
-		});
-
 		return (
-			<aside className='sideBarContainer' >
-				<div className='sideBarHeader'>
-					<h3 className='username'>{ user ? user.name : null }</h3>
+			<aside className='SideBarContainer' >
+				<div className='SideBarHeader'>
 					<Icon
-						onClickFunction={ handleLogout }
-						iconContainerClass='logoutIconContainer'
-						iconClass='logoutIcon'
+						key='sidebarHeaderUsernameIcon'
+						iconContainerClass='userIconContainer'
+						iconClass='userIcon'
+						iconName='user'
+					/>
+					<h2 className='username' >
+						{ this.props.user ? this.props.user.name : null }
+					</h2>
+				</div>
+				{
+					this.state.isMenuOpen ?
+						<SettingsMenu
+							user={ this.props.user }
+							handleUpdateUserProfile={ this.props.handleUpdateUserProfile }
+						/>
+						:
+						<ActiveUsersList
+							user={ this.props.user }
+							connectedUsers={ this.props.connectedUsers }
+						/>
+
+				}
+				<div className='logoutContainer'>
+					<Icon
+						key='settingsButton'
+						onClickFunction={ this.handleMenuSwitch }
+						iconContainerClass='settingsButtonContainer'
+						iconClass='settingsButton'
+						iconName='cog'
+					/>
+					<Icon
+						key='logoutButton'
+						onClickFunction={ this.props.handleLogout }
+						iconContainerClass='logoutButtonContainer'
+						iconClass='logoutButton'
 						iconName='eject'
 					/>
-				</div>
-				<div className='activeUserTitle'>
-					<h3>User's Online</h3>
-				</div>
-				<div className='activeUsers'>
-					<div className='activeUsersList'>
-						{ activeUserComponents }
-					</div>
 				</div>
 			</aside>
 		);

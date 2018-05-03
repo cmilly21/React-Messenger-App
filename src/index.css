@@ -1,6 +1,10 @@
-body, html {
+*, *:before, *:after {
   box-sizing: border-box;
+}
+
+body, html {
   height: 100%;
+  background: var(--main-color);
 }
 
 body {
@@ -9,7 +13,6 @@ body {
   padding: 0;
   font-family: sans-serif;
   font-size: 16px;
-  color: #333;
 }
 
 #root {
@@ -39,7 +42,7 @@ a, input {
 }
 
 a {
-  color: rgba(255, 85, 85, 1);
+  color:  var(--main-color);
 }
 
 a:hover {
@@ -78,8 +81,8 @@ input:hover, a {
 }
 
 input[type='button']:hover, input[type='submit']:hover {
-  background:  	rgba(117,103,167,1);
-  border-color: rgba(117,103,167,1);
+  background:  var(--main-shade);
+  border-color: var(--main-shade);
 }
 
 input[type='text']:hover, input[type='password']:hover {
@@ -133,4 +136,20 @@ input[type='password']:focus, input[type='text']:focus {
   100% {
     transform: scale(1);
   }
+}
+
+@keyframes fadeIn {
+  0% {
+    width: 0%;
+    opacity: 0;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+:root {
+  --main-color: rgba(255, 85, 85, 1);
+  --main-shade: rgba(229, 76, 76, 1);
 }

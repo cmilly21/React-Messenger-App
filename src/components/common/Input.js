@@ -1,7 +1,8 @@
 import React from 'react';
+import './Input.css';
 // import propType from 'prop-types';
 
-export default function AuthInput({ autoFocus, handleChange, iconName, inputType, placeholder, name }) {
+export default function Input({ autoFocus = false, handleChange = (e) => e.preventDefault(), iconName, inputType, placeholder, name }) {
 
 	const inputComponent = autoFocus ? (
 		<input
@@ -9,7 +10,7 @@ export default function AuthInput({ autoFocus, handleChange, iconName, inputType
 			name={ name }
 			type={ inputType }
 			placeholder={ placeholder }
-			onChange={ (e) => handleChange(e) }
+			onChange={ handleChange }
 			minLength='4'
 			required
 		/>
@@ -18,11 +19,12 @@ export default function AuthInput({ autoFocus, handleChange, iconName, inputType
 				name={ name }
 				type={ inputType }
 				placeholder={ placeholder }
-				onChange={ (e) => handleChange(e) }
+				onChange={ handleChange }
 				minLength='4'
 				required
 			/>
 		)
+		
 	return (
 		<div className='formGroup' >
 			<div className='leftIcon inputContainer'>

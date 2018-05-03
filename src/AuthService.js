@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 export default {
-	userLogin: async (name, password, successCB, failureCB) => {
+	userLogin: async (username, password, successCB, failureCB) => {
 		try {
-			name.toLowerCase();
-			const res = await axios.post('/users/login', { name: name, password: password })
+			username.toLowerCase();
+			const res = await axios.post('/users/login', { name: username, password: password })
 
+			console.log(res);
 			setToken(res.data.token);
 
 			successCB();
@@ -32,7 +33,7 @@ export default {
 			const token = getToken();
 			if (!token) return { auth: false, message: 'No token in localStorage' };
 
-			const res = await axios.post('/auth/authenticate', { token: token });
+			const res = await axios.post(`/jwt/${ token }`);
 
 			return res.data;
 		} catch (err) {
@@ -42,6 +43,34 @@ export default {
 	userLogout: () => {
 		removeToken();
 	},
+	userChangeUsername: async (userId, currentPassword, newUsername, successCB) => {
+		try {
+
+			const res = await axios.put(`/users/updateUsername/${ userId }`, { currentPassword: currentPassword, newUsername: newUsername });
+
+			console.log(res.data);
+
+			successCB(res.data.user);
+
+		} catch (err) {
+			console.log(err.response);
+			return err;
+		}
+	},
+	userChangePassword: async (userId, currentPassword, newPassword, successCB) => {
+		try {
+
+			const res = await axios.put(`/users/updatePassword/${ userId }`, { currentPassword: currentPassword, newPassword: newPassword });
+
+			console.log(res.data);
+
+			successCB(res.data.user);
+
+		} catch (err) {
+			console.log(err.response);
+			return err;
+		}
+	}
 }
 
 function getToken() {

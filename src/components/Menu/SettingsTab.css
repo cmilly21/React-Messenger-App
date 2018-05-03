@@ -1,0 +1,28 @@
+.SettingsTab {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	transition: 0.5s;
+	overflow: hidden;
+}
+
+.SettingsTabButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	color: white;
+	font-size: 1.2em;
+	font-weight: 500;
+	width: 100%;
+	padding: 16px 0;
+	transition: 0.5s;
+}
+
+.SettingsTabButton:hover, .SettingsTabButtonActive {
+	background: var(--main-shade);
+	cursor: pointer;
+	border-color: white !important;
+}

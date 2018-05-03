@@ -1,0 +1,8 @@
+.messageDashboard {
+	width: 75%;
+	position: relative;
+	margin-left: auto;
+	display: flex;
+	flex-wrap: wrap;
+	transition: 0.5s;
+}

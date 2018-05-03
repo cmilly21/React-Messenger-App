@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/Forms.css';
+import './Forms.css';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 import { Redirect } from 'react-router-dom';

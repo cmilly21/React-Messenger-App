@@ -1,5 +1,4 @@
 const { creatChat } = require('../models/Chat');
-const { createMessage } = require('../models/Message');
 
 let connectedUsers = {};
 let communityChat = creatChat();
@@ -8,7 +7,7 @@ module.exports = function(socket, io) {
 
 	let sendMessageToChatFromUser;
 
-	socket.on('USER_CONNECTED', (user) => {
+	socket.on('USER_CONNECTED_server', (user) => {
 
 		if (!user) return console.log('No user to connect!');
 		console.log('User to connect =>', user);
@@ -23,12 +22,19 @@ module.exports = function(socket, io) {
 
 		communityChat.users = Object.keys(connectedUsers).map(key => connectedUsers[ key ]);
 
-		io.emit('NEW_CONNECTED_USERS', communityChat); // Broadcasts 'USER_CONNECTED' to all sockets
+		io.emit('USER_CONNECTED', connectedUsers); // Broadcasts 'USER_CONNECTED' to all sockets
 		console.log('On Connect - Connected Users =>', connectedUsers);
 	});
 
 	socket.on('MESSAGE_SENT', (chatId, msgSender, msg) => {
-		const newMsg = createMessage(chatId, msgSender, msg);
+
+		const newMsg = {
+			id: Date.now(),
+			chatId: chatId,
+			sender: msgSender,
+			message: msg
+		}
+
 		console.log(newMsg);
 		sendMessageToChatFromUser(chatId, newMsg);
 	});
@@ -43,7 +49,7 @@ module.exports = function(socket, io) {
 
 		communityChat.users = Object.keys(connectedUsers).map(key => connectedUsers[ key ]);
 
-		io.emit('NEW_CONNECTED_USERS', communityChat);
+		io.emit('USER_CONNECTED', connectedUsers);
 		console.log('Logout', connectedUsers);
 	});
 
@@ -56,7 +62,7 @@ module.exports = function(socket, io) {
 
 			communityChat.users = Object.keys(connectedUsers).map(key => connectedUsers[ key ]);
 
-			io.emit('NEW_CONNECTED_USERS', communityChat);
+			io.emit('NEW_CONNECTED_USERS', connectedUsers);
 			console.log('Disconnect - New connectedUsers =>', connectedUsers);
 		}
 	});

@@ -4,7 +4,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: rgba(255, 85, 85, 1);
+	background: var(--main-color);
 	color: white;
 }
 
@@ -14,8 +14,4 @@
 .titleContainer {
 	margin: auto;
 	transition: 0.5s;
-}
-
-.headerIconContainer: {
-	
 }

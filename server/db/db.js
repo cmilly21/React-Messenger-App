@@ -2,12 +2,12 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 
-mongoose.connect(process.env.DB_CONNECTION)
-	// mongoose.connect(process.env.LOCAL_DB_CONNECTION)
-	.catch((err) => {
-		console.error(err);
-		mongoose.disconnect();
-	});
+// const connectionString = process.env.NODE_ENV === 'production' ? process.env.DB_CONNECTION : 'mongodb://localhost:27017/messageapp';
+const connectionString = process.env.DB_CONNECTION;
+
+mongoose.connect(connectionString, (err) => {
+	if (err) throw err;
+});
 
 db.once('open', () => {
 	console.log(`MongoDB connection opened!`);

@@ -1,0 +1,4 @@
+.activeUsersList {
+	height: calc(100% - 175px);
+	margin: 16px 0;
+}

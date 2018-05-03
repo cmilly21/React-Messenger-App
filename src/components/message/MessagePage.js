@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import '../../css/MessageDashboard.css';
+import React, { Component } from 'react';
+import './MessagePage.css';
 import Header from '../common/Header';
 import SideBarContainer from '../sidebar/SideBarContainer';
 import MessagesList from './MessagesList';
@@ -8,29 +8,26 @@ import { Redirect } from 'react-router-dom';
 
 import AuthService from '../../AuthService';
 import io from 'socket.io-client';
-const socketURL = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080'
+const socketURL = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080';
 
-export default class MessagePage extends PureComponent {
+// if (process.env.NODE_ENV !== 'production') {
+// 	const { whyDidYouUpdate } = require('why-did-you-update')
+// 	whyDidYouUpdate(React)
+// }
+
+export default class MessagePage extends Component {
 
 	state = {
 		isUserLoggedIn: true,
 		socket: null,
 		user: null,
 		activeChat: 'Community',
-		chats: []
+		chats: [],
+		connectedUsers: [],
 	}
 
 	componentDidMount() {
 		this.authUser();
-		this.messageList;
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		if (prevState !== this.state && this.state.isUserLoggedIn) {
-			this.messageList.scrollTop = this.messageList.scrollHeight;
-			return;
-		}
-		return;
 	}
 
 	componentWillUnmount() {
@@ -59,38 +56,32 @@ export default class MessagePage extends PureComponent {
 			forceNew: true
 		});
 
-		this.setState({
-			socket: socket,
-			user: user,
-		});
-
 		socket.on('connect', () => {
-			socket.emit('USER_CONNECTED', user);
+			socket.emit('USER_CONNECTED_server', user);
 			socket.emit('COMMUNITY_CHAT', this.resetChat);
+
+			this.setState({
+				user: user,
+				socket: socket
+			});
 		});
 
 		socket.on('reconnect', (attemptNum) => {
-			socket.emit('USER_CONNECTED', user);
+			console.log('Reconnected')
+			socket.emit('USER_CONNECTED_server', user);
+			socket.emit('COMMUNITY_CHAT', this.resetChat);
 			this.setState({
 				socket: socket,
 				user: user,
 			});
 		});
 
-		socket.on('NEW_CONNECTED_USERS', (communityChat) => {
-			const { chats } = this.state;
+		socket.on('USER_CONNECTED', (connectedUsers) => {
 
-			const newChats = chats.map(chat => {
-				if (chat.id === 'Community') {
-					return chat = communityChat;
-				}
-				return chat;
-			});
+			let newConnectedUsers = Object.keys(connectedUsers).map(key => connectedUsers[ key ]);
 
-
-			this.setState({ chats: newChats });
+			this.setState({ connectedUsers: newConnectedUsers });
 		});
-
 	}
 
 	handleActiveChatChange = (e, chatId) => {
@@ -112,13 +103,6 @@ export default class MessagePage extends PureComponent {
 		socket.on(`MESSAGE_RECEIVE-${ chat.id }`, this.addMessageToChat(chat.id));
 	}
 
-	handleLogout = (e) => {
-		e.preventDefault();
-
-		AuthService.userLogout();
-		this.setState({ isUserLoggedIn: false });
-	}
-
 	// This function is sent to the server 
 	addMessageToChat = (chatId) => {
 		return message => {
@@ -126,40 +110,58 @@ export default class MessagePage extends PureComponent {
 
 			let newChats = chats.map(chat => {
 				if (chat.id === chatId) {
+					console.log('is message already in list?', chat.messages.includes(message));
+					if (chat.messages.includes(message)) return chat;
 					chat.messages.push(message);
 					return chat;
 				}
+				return chat;
 			});
-
 			this.setState({ chats: newChats })
 		}
 	}
 
+	handleLogout = (e) => {
+		e.preventDefault();
+
+		this.state.socket.emit('USER_LOGOUT', this.state.user);
+		AuthService.userLogout();
+		this.setState({ isUserLoggedIn: false });
+	}
+
+	handleUpdateUserProfile = (updatedUser) => {
+		this.state.socket.emit('USER_LOGOUT', this.state.user);
+
+		this.setState({ user: updatedUser });
+
+		this.state.socket.emit('USER_CONNECTED_server', updatedUser);
+	}
+
 	render() {
-		const { user, socket, activeChat, chats } = this.state;
+
 		if (!this.state.isUserLoggedIn) return <Redirect to='/' />;
 
 		return (
 			<div className='page' >
 				<SideBarContainer
-					user={ user }
-					activeChat={ activeChat }
-					chats={ chats }
+					user={ this.state.user }
+					activeChat={ this.state.activeChat }
+					connectedUsers={ this.state.connectedUsers }
 					handleActiveChatChange={ this.handleActiveChatChange }
 					handleLogout={ this.handleLogout }
+					handleUpdateUserProfile={ this.handleUpdateUserProfile }
 				/>
 				<main className='messageDashboard' >
 					<Header />
 					<MessagesList
-						user={ user }
-						chats={ chats }
-						activeChat={ activeChat }
-						messageListRef={ (el) => this.messageList = el }
+						user={ this.state.user }
+						activeChat={ this.state.activeChat }
+						chats={ this.state.chats }
 					/>
 					<MessageInput
-						activeChat={ activeChat }
-						socket={ socket }
-						user={ user }
+						activeChat={ this.state.activeChat }
+						socket={ this.state.socket }
+						user={ this.state.user }
 					/>
 				</main>
 			</div>

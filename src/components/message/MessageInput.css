@@ -23,7 +23,7 @@
 	border-left: none;
 	width: 10%;
 	min-width: 80px;
-	background: rgba(255, 85, 85, 1);
+	background: var(--main-color);
 	color: white;
 	border-radius: 0 4px 4px 0;
 	font-size: 1.2em;

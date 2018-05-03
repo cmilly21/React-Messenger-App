@@ -1,0 +1,69 @@
+.icon {
+	color: rgba(255, 85, 85, 1);
+	position: absolute;
+	left: 20px;
+	width: 20px !important;
+	top: 50%;
+	transform: translate(0, -50%)
+}
+
+.chatsIcon {
+	vertical-align: middle;
+	margin-right: 8px;
+}
+
+.userIcon {
+	margin-right: 8px; 
+}
+
+.logoutButton, .settingsButton {
+	font-size: 1.5em;
+	transition: 0.5s;
+}
+
+.logoutButton:hover {
+	animation: pulse 1s infinite;
+}
+
+.settingsButton:hover {
+	cursor: pointer;
+	transform: scale(1.2);
+	animation: spin 1s infinite;
+}
+
+.closeMenuIcon:hover, .logoutButton:hover{
+	cursor: pointer;
+}
+
+.MenuTabArrowIconContainer {
+	margin-left: 8px;
+	transition: 0.5s;
+}
+
+.MenuTabArrowIconActive {
+	transform: rotate(180deg)
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg) scale(1);
+	} 
+	50% {
+		transform: rotate(180deg) scale(1.3);
+	}
+	100% {
+		transform: rotate(360deg), scale(1);
+	}
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.3)
+	}
+	100% {
+		transform: scale(1);
+	}
+}

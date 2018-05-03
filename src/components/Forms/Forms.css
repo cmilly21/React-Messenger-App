@@ -32,36 +32,6 @@
 	padding: 30px 40px 40px 40px;
 }
 
-.formGroup {
-	width: 100%;
-	margin: 0 0 1em;
-}
-
-.formGroup:last-of-type {
-	margin: 0;
-}
-
-.icon {
-	color: rgba(255, 85, 85, 1);
-	position: absolute;
-	left: 20px;
-	width: 20px !important;
-	top: 50%;
-	transform: translate(0, -50%)
-}
-
-.inputContainer {
-	position: relative;
-	display: flex;
-}
-
-.inputContainer input {
-	width: 100%;
-	padding: 1em 1em 1em 60px;
-	border: 1ps solid 	rgba(235, 235, 235, 1);
-	transition: 0.2s;
-}
-
 .switchFormContainer {
 	font-size: 1.2em;
 	font-weight: 300;
