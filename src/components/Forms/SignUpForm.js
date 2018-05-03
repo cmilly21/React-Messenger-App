@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthInput from './AuthInput';
+import Input from '../common/Input';
 import MainButton from '../common/MainButton';
 import ErrorMessage from './ErrorMessage';
 
@@ -14,7 +14,7 @@ export default function SignUpForm({ switchForm, handleChange, handleSubmit, err
 			<form
 				className='form'
 				onSubmit={ handleSubmit }>
-				<AuthInput
+				<Input
 					autoFocus={ true }
 					handleChange={ handleChange }
 					iconName='icon fas fa-user'
@@ -22,16 +22,14 @@ export default function SignUpForm({ switchForm, handleChange, handleSubmit, err
 					placeholder='Username'
 					name='username'
 				/>
-				<AuthInput
-					autoFocus={ false }
+				<Input
 					handleChange={ handleChange }
 					iconName='icon fas fa-lock'
 					inputType='text'
 					placeholder='Password'
 					name='password'
 				/>
-				<AuthInput
-					autoFocus={ false }
+				<Input
 					handleChange={ handleChange }
 					iconName='icon fas fa-lock'
 					inputType='text'

@@ -1,15 +1,14 @@
 .activeUserContainer {
 	width: 100%;
-	margin: auto;
 	padding: 16px 0px;
 	color: #fff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	transition: 0.25s;
 	text-transform: capitalize;
 	font-size: 1.2em;
 	font-weight: 500;
+	transition: 0.5s;
 }
 
 .activeUserContainer:hover {
@@ -18,5 +17,6 @@
 }
 
 .activeUser {
-
+	display: inline;
+	white-space: nowrap;
 }

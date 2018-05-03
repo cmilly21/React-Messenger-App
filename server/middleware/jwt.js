@@ -16,7 +16,7 @@ module.exports = {
 	},
 	authenticateToken: (req, res, next) => {
 
-		const token = req.body.token;
+		const token = req.params.tokenId;
 
 		if (!token) return res.status(404).json({ auth: false, message: 'No token was given.' });
 

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import './Message.css';
 
-export default function Message({ user, messageData }) {
-	return (
-		<div className={ user.name === messageData.sender ? 'messageContainer' : 'messageContainer messageRight' }>
-			<strong className='messageSender' >
-				{ messageData.sender }
-			</strong>
-			<div className='messageText'>
-				<p>{ messageData.message }</p>
+export default class Message extends PureComponent {
+	render() {
+		return (
+			<div className={ this.props.user.name === this.props.messageData.sender ? 'messageContainer' : 'messageContainer messageRight' } >
+				<strong className='messageSender' >
+					{ this.props.messageData.sender }
+				</strong>
+				<div className='messageText'>
+					<p>{ this.props.messageData.message }</p>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }

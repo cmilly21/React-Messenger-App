@@ -1,0 +1,46 @@
+.UpdateForm {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	padding: 8px 0;
+	overflow: hidden;
+	/* transition: 0.5s; */
+	height: 0;
+	opacity: 1;
+}
+
+.UpdateFormOpen {
+	display: flex !important;
+	height: 100% !important;
+}
+
+.UpdateForm input {
+	margin: 8px 0;
+	padding: 0.5em;
+}
+
+.UpdateFormSubmitButton {
+	width: 100%;
+}
+
+.UpdateFormSubmitButton:hover {
+	background: #f0f0f0 !important;
+}
+
+@keyframes openMenu {
+	from {
+		height: 0;
+	} to {
+		height: 100%;
+	}
+}
+
+@keyframes closeMenu {
+	from {
+		height: 100%;
+		opacity: 1;
+	} to {
+		height: 0;
+		opacity: 0;
+	}
+}

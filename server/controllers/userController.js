@@ -1,11 +1,13 @@
 require('dotenv').config();
-const User = require('../models/User');
+const User = require('../models/Users');
 const JWT_SECRET_KEY = process.env.SECRET_KEY;
 
 module.exports = {
 	userLogin: (req, res, next) => {
 		let name = req.body.name;
 		let password = req.body.password;
+
+		console.log(req.body);
 
 		User.findOne({ name: name }, (err, user) => {
 			if (err) return res.status(500).json({ auth: false, message: 'There was a problem with the server.', errMsg: err });
@@ -17,6 +19,7 @@ module.exports = {
 		});
 	},
 	userCreate: (req, res, next) => {
+		console.log(req.body);
 		let newUser = new User({
 			name: req.body.name,
 			password: req.body.password,
@@ -46,12 +49,36 @@ module.exports = {
 			});
 		});
 	},
-	updateUserProfile: (req, res) => {
-		let userId = req.params.userid;
+	updateUsername: (req, res) => {
+		let userId = req.params.userId;
+		req.body
 
-		User.findByIdAndUpdate(userId, req.body, { new: true }, (err, user) => {
-			if (err) res.status(500).json('There was a problem updating the user');
-			res.status(200).json(user);
+		User.findById(userId, (err, user) => {
+			if (err) return res.status(500).json({ success: false, message: 'There was a problem updating the user', err });
+			if (user.password !== req.body.currentPassword) return res.status(401).json({ success: false, message: 'Password incorrect' });
+
+			user.set({ name: req.body.newUsername });
+			user.save((err, updatedUser) => {
+				if (err) return res.status(400).json({ success: false, message: 'Error:', err });
+
+				res.status(200).json({ success: true, user: updatedUser });
+			});
+		});
+	},
+	updatePassword: (req, res) => {
+		let userId = req.params.userId;
+
+		User.findById(userId, (err, user) => {
+			if (err) res.status(500).json({ success: false, message: 'There was a problem updating the user' });
+			console.log('old pass =>', user.password, 'user sent pass =>', req.body.currentPassword);
+			if (user.password !== req.body.currentPassword) return res.status(401).json({ success: false, message: 'Password incorrect' });
+
+			user.set({ password: req.body.newPassword });
+			user.save((err, updatedUser) => {
+				if (err) return res.status(400).json({ success: false, message: 'Error:', err });
+
+				res.status(200).json({ success: true, user: updatedUser });
+			});
 		});
 	}
 }

@@ -1,16 +1,7 @@
 .Menu {
-	background:  var(--main-color);
-	width: 0%;
-	opacity: 0;
+	position: relative;
+	margin: 16px 0px;
 	transition: 0.5s;
-	box-shadow: 2px 0px 10px rgba(51,51,51, 0.6);
-	z-index: 100;
-}
-
-.openMenu {
-	width: 25%;
-	opacity: 1;
-	z-index: 100;
 }
 
 .MenuHeader {
@@ -19,17 +10,13 @@
 	align-items: center;
 	background:  var(--main-shade);
 	height: 100px;
+	width: calc(100% + 4px);
 	box-shadow: 0px 4px 10px rgba(51,51,51, 0.6);
 	font-size: 2.4em;
-	color: white;
-
 }
 
-.closeMenuIcon {
-}
-
-.MenuTabList {
+.SettingsTabList {
 	display: flex;
 	flex-direction: column;
-	height: calc(100% - 100px);
+	margin: 16px 0;
 }

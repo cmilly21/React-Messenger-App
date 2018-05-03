@@ -1,54 +1,63 @@
 import React, { PureComponent } from 'react';
-import './SideBarContainer.css'
-import ActiveUser from './ActiveUser';
+import './SideBarContainer.css';
 import Icon from '../common/Icon';
+import ActiveUsersList from './ActiveUsersList';
+import SettingsMenu from '../Menu/SettingsMenu';
 
 export default class SideBarContainer extends PureComponent {
 
+	state = {
+		isMenuOpen: false
+	}
+
+	handleMenuSwitch = (e) => {
+		e.preventDefault();
+
+		this.setState((prevState) => ({ isMenuOpen: !prevState.isMenuOpen }));
+	}
+
 	render() {
-		const { user, activeChat, chats, isMenuOpen, toggleMenu, handleActiveChatChange, handleLogout } = this.props;
-
-		let sidebarBarContainerClass = isMenuOpen ? 'SideBarContainer closeSideBar' : 'SideBarContainer';
-
 		return (
-			<aside className={ sidebarBarContainerClass } >
+			<aside className='SideBarContainer' >
 				<div className='SideBarHeader'>
 					<Icon
-						onClickFunction={ toggleMenu }
+						key='sidebarHeaderUsernameIcon'
 						iconContainerClass='userIconContainer'
 						iconClass='userIcon'
 						iconName='user'
 					/>
-					<h2 className='username' onClick={ toggleMenu }>
-						{ user ? user.name : null }
+					<h2 className='username' >
+						{ this.props.user ? this.props.user.name : null }
 					</h2>
 				</div>
-				<div className='sidebarSubHeader'>
-					<h3>User's Online</h3>
-				</div>
-				<div className='activeUsers'>
-					<div className='activeUsersList'>
-						{
-							chats.map(chat => {
+				{
+					this.state.isMenuOpen ?
+						<SettingsMenu
+							user={ this.props.user }
+							handleUpdateUserProfile={ this.props.handleUpdateUserProfile }
+						/>
+						:
+						<ActiveUsersList
+							user={ this.props.user }
+							connectedUsers={ this.props.connectedUsers }
+						/>
 
-								const communityChatUser = {
-									_id: 'CommunityChat',
-									name: 'Community Chat',
-									socketId: 'CommunityChat'
-								};
-
-								let newActiveUsers = [ communityChatUser, ...chat.users ]
-								return newActiveUsers.map(activerUser => {
-									if (activerUser.name !== user.name)
-										return <ActiveUser
-											key={ activerUser._id }
-											user={ activerUser }
-											setActiveChat={ (e) => e.preventDefault() /* handleActiveChatChange */ }
-										/>
-								});
-							})
-						}
-					</div>
+				}
+				<div className='logoutContainer'>
+					<Icon
+						key='settingsButton'
+						onClickFunction={ this.handleMenuSwitch }
+						iconContainerClass='settingsButtonContainer'
+						iconClass='settingsButton'
+						iconName='cog'
+					/>
+					<Icon
+						key='logoutButton'
+						onClickFunction={ this.props.handleLogout }
+						iconContainerClass='logoutButtonContainer'
+						iconClass='logoutButton'
+						iconName='eject'
+					/>
 				</div>
 			</aside>
 		);

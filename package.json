@@ -2,6 +2,7 @@
   "name": "messagingapp",
   "version": "0.1.0",
   "main": "server.js",
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
@@ -37,6 +38,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "nodemon": "^1.17.3",
-    "prop-types": "^15.6.1"
+    "prop-types": "^15.6.1",
+    "why-did-you-update": "^0.1.1"
   }
 }

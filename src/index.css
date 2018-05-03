@@ -138,6 +138,17 @@ input[type='password']:focus, input[type='text']:focus {
   }
 }
 
+@keyframes fadeIn {
+  0% {
+    width: 0%;
+    opacity: 0;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
 :root {
   --main-color: rgba(255, 85, 85, 1);
   --main-shade: rgba(229, 76, 76, 1);

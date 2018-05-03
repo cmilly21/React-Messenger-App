@@ -1,0 +1,20 @@
+.formGroup {
+	width: 100%;
+	margin: 0 0 1em;
+}
+
+.formGroup:last-of-type {
+	margin: 0;
+}
+
+.inputContainer {
+	position: relative;
+	display: flex;
+}
+
+.inputContainer input {
+	width: 100%;
+	padding: 1em 1em 1em 60px;
+	border: 1ps solid 	rgba(235, 235, 235, 1);
+	transition: 0.2s;
+}

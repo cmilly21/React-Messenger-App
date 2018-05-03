@@ -1,20 +1,10 @@
 .SideBarContainer {
 	position: relative;
+	background: var(--main-color);
 	width: 25%;
-	opacity: 1;
-	background:  var(--main-color);
-	transition: 0.5s;
-	display: flex;
-	flex-direction: column;
 	color: white;
-	transition: 0.5s;
 	box-shadow: 2px 0px 10px rgba(51,51,51, 0.6);
 	z-index: 100;
-}
-
-.closeSideBar {
-	width: 0% !important;
-	opacity: 0 !important;
 }
 
 .SideBarHeader {
@@ -37,16 +27,7 @@
 }
 
 .username:hover {
-	cursor: pointer;
-}
-
-.logoutIcon {
-	transition: 0.5s;
-}
-
-.logoutIcon:hover {
-	cursor: pointer;
-	transform: scale(1.4);
+	cursor: default;	
 }
 
 .sidebarSubHeader{
@@ -56,24 +37,25 @@
 	width: calc(100% + 2px);
 	height: 75px;
 	margin-right: -2px; 
-	background: rgba(229,76,76,1);
-	color: #fff;
+	background: var(--main-shade);
 	text-align: center;
 	box-shadow: 0px 4px 10px rgba(51,51,51, 0.6);
 	z-index: 5;
+	transition: 1s;
 }
 
-.activeUsers {
-	overflow: auto;
+.sidebarSubHeader h3 {
+	white-space: nowrap;
+}
+
+.sidebarSubHeader h3:hover {
+	cursor: default;
+}
+
+.animationContainer {
 	height: calc(100% - 175px);
-}
-
-.activeUsersList {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin: 16px 0;
+	animation: fadeIn 0.5s linear;
+	background: var(--main-color);
 }
 
 .logoutContainer {
@@ -83,7 +65,6 @@
 	justify-content: space-evenly;
 	align-items: center;
 	font-size: 1.4em;
-	color: white;
 	text-align: center;
 	box-shadow: 1px -1px 10px rgba(51,51,51, 0.6);
 	margin-right: -2px;
