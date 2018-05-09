@@ -17,8 +17,6 @@ export default class MessageInput extends Component {
 	handleMessageChange = (e) => {
 		e.preventDefault()
 
-		// console.log('onChange: Message Input');
-
 		this.setState({ message: e.target.value });
 	}
 
@@ -28,18 +26,20 @@ export default class MessageInput extends Component {
 		const { message } = this.state;
 		const { activeChat, socket, user } = this.props;
 
+		if (message < 1) return;
+
 		socket.emit('MESSAGE_SENT', activeChat, user.name, message);
 		this.setState({ message: '' });
 	}
 
 	render() {
-		// console.log('Render: Message Input');
 		return (
 			<form
 				className='messageInputContainer'
 				onSubmit={ this.sendMessage }>
 				<input
 					autoFocus
+					min
 					className='messageInput'
 					type='text'
 					placeholder='Message...'
@@ -47,7 +47,6 @@ export default class MessageInput extends Component {
 					onChange={ this.handleMessageChange }
 				/>
 				<input
-					disabled={ this.state.message < 1 }
 					className='submitInput'
 					type='submit'
 					value='Send'

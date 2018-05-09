@@ -6,7 +6,7 @@ import MessagesList from './MessagesList';
 import MessageInput from './MessageInput';
 import { Redirect } from 'react-router-dom';
 
-import AuthService from '../../AuthService';
+import AppService from '../../AppService';
 import io from 'socket.io-client';
 const socketURL = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080';
 
@@ -39,7 +39,7 @@ export default class MessagePage extends Component {
 
 	async authUser() {
 		try {
-			const data = await AuthService.authUser();
+			const data = await AppService.authUser();
 			if (!data.auth || !data.user) return this.setState({ isUserLoggedIn: false });
 			this.initSocket(data.user);
 		} catch (err) {
@@ -67,9 +67,10 @@ export default class MessagePage extends Component {
 		});
 
 		socket.on('reconnect', (attemptNum) => {
-			console.log('Reconnected')
+
 			socket.emit('USER_CONNECTED_server', user);
 			socket.emit('COMMUNITY_CHAT', this.resetChat);
+
 			this.setState({
 				socket: socket,
 				user: user,
@@ -110,7 +111,6 @@ export default class MessagePage extends Component {
 
 			let newChats = chats.map(chat => {
 				if (chat.id === chatId) {
-					console.log('is message already in list?', chat.messages.includes(message));
 					if (chat.messages.includes(message)) return chat;
 					chat.messages.push(message);
 					return chat;
@@ -125,7 +125,7 @@ export default class MessagePage extends Component {
 		e.preventDefault();
 
 		this.state.socket.emit('USER_LOGOUT', this.state.user);
-		AuthService.userLogout();
+		AppService.userLogout();
 		this.setState({ isUserLoggedIn: false });
 	}
 

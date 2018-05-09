@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './Forms.css';
-import LoginForm from './LoginForm';
+import LogInForm from './LogInForm';
 import SignUpForm from './SignUpForm';
 import { Redirect } from 'react-router-dom';
-import AuthService from '../../AuthService';
+import AppService from '../../AppService';
 
 export default class FormsContainer extends Component {
 
@@ -22,7 +22,7 @@ export default class FormsContainer extends Component {
 
 	async getUser() {
 		try {
-			const data = await AuthService.authUser();
+			const data = await AppService.authUser();
 			if (!data.auth) return;
 			this.setState({ isUserLoggedIn: data.auth });
 
@@ -49,7 +49,7 @@ export default class FormsContainer extends Component {
 		const { username, password, confirmPassword, isLoginForm } = this.state;
 
 		if (isLoginForm) {
-			AuthService.userLogin(
+			AppService.userLogin(
 				username,
 				password,
 				this.handleSubmitSuccess,
@@ -59,7 +59,7 @@ export default class FormsContainer extends Component {
 
 			if (password !== confirmPassword) return this.setState({ errMsg: `Passwords don't match.` });
 
-			AuthService.userSignUp(
+			AppService.userSignUp(
 				username,
 				password,
 				this.handleSubmitSuccess,
@@ -90,7 +90,7 @@ export default class FormsContainer extends Component {
 			<main className='formDashboardContainer' >
 				{ this.state.isLoginForm ?
 					(
-						<LoginForm
+						<LogInForm
 							switchForm={ this.handleFormSwitch }
 							handleChange={ this.handleInputChange }
 							handleSubmit={ this.handleFormSubmit }

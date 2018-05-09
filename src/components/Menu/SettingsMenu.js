@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import './SettingsMenu.css'
 import SettingsTab from './SettingsTab';
-import AuthService from '../../AuthService';
+import AppService from '../../AppService';
 
 export default class SettingsMenu extends PureComponent {
 
@@ -42,8 +42,7 @@ export default class SettingsMenu extends PureComponent {
 		if (!this.state.whichTabOpen) return console.log('No tab open to update!');
 
 		if (this.state.whichTabOpen === 'Username') {
-			console.log('Updating username!');
-			AuthService.userChangeUsername(
+			AppService.userChangeUsername(
 				this.props.user._id,
 				this.state.currentPassword,
 				this.state.newUsername,
@@ -53,8 +52,7 @@ export default class SettingsMenu extends PureComponent {
 		}
 
 		if (this.state.whichTabOpen === 'Password') {
-			console.log('Updating password!')
-			AuthService.userChangePassword(
+			AppService.userChangePassword(
 				this.props.user._id,
 				this.state.currentPassword,
 				this.state.newPassword,

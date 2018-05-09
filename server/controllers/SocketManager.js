@@ -9,10 +9,8 @@ module.exports = function(socket, io) {
 
 	socket.on('USER_CONNECTED_server', (user) => {
 
-		if (!user) return console.log('No user to connect!');
-		console.log('User to connect =>', user);
-
-		if (isUserConnected(connectedUsers, user.name)) return console.log('User already connected');
+		if (!user) return;
+		if (isUserConnected(connectedUsers, user.name)) return;
 
 		user.socketId = socket.id;
 		connectedUsers = addUser(connectedUsers, user);
@@ -23,7 +21,6 @@ module.exports = function(socket, io) {
 		communityChat.users = Object.keys(connectedUsers).map(key => connectedUsers[ key ]);
 
 		io.emit('USER_CONNECTED', connectedUsers); // Broadcasts 'USER_CONNECTED' to all sockets
-		console.log('On Connect - Connected Users =>', connectedUsers);
 	});
 
 	socket.on('MESSAGE_SENT', (chatId, msgSender, msg) => {
@@ -35,7 +32,6 @@ module.exports = function(socket, io) {
 			message: msg
 		}
 
-		console.log(newMsg);
 		sendMessageToChatFromUser(chatId, newMsg);
 	});
 
@@ -50,7 +46,6 @@ module.exports = function(socket, io) {
 		communityChat.users = Object.keys(connectedUsers).map(key => connectedUsers[ key ]);
 
 		io.emit('USER_CONNECTED', connectedUsers);
-		console.log('Logout', connectedUsers);
 	});
 
 	socket.on('disconnect', () => {
@@ -62,22 +57,20 @@ module.exports = function(socket, io) {
 
 			communityChat.users = Object.keys(connectedUsers).map(key => connectedUsers[ key ]);
 
-			io.emit('NEW_CONNECTED_USERS', connectedUsers);
-			console.log('Disconnect - New connectedUsers =>', connectedUsers);
+			io.emit('USER_CONNECTED', connectedUsers);
 		}
 	});
 }
 
 function sendMessageToChat(sender, io) {
 	return (chatId, message) => {
-		console.log('Send Message To Chat =>', sender, chatId, message);
 		io.emit(`MESSAGE_RECEIVE-${ chatId }`, message);
 	}
 }
 
 function addUser(userList, user) {
 
-	if (!user) return console.log('No user to add to connectUsers!');
+	if (!user) return;
 
 	let newList = Object.assign({}, userList);
 	newList[ user.name ] = user;
@@ -87,7 +80,7 @@ function addUser(userList, user) {
 
 function removeUser(userList, username) {
 
-	if (!username) return console.log('No User to removeUser');
+	if (!username) return;
 
 	let newList = Object.assign({}, userList);
 	delete newList[ username ];
@@ -96,6 +89,5 @@ function removeUser(userList, username) {
 }
 
 function isUserConnected(userList, username) {
-	console.log('isUserConnected?', username in userList);
 	return username in userList;
 }

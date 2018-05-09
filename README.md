@@ -14,7 +14,7 @@ This project was built for a 2nd semester class project. I used React.js, Expres
 + **Create Production build** => npm run build 
 
 
-## Pages
+## Client Side
 ---
 
 1. **Forms Page**
@@ -22,9 +22,17 @@ This project was built for a 2nd semester class project. I used React.js, Expres
 	+ Signup Form View
 
 2. **Message Dashboard Page**
+	+ User must have web token in localstorage to be authenticated and authorized to use this page
+	+ All incoming messages are stored into browser storage space
 
 
-## Models
+## Node Server
+
++ Handles Restful API for user login / creation and also has an endpoint to autheticate a web token tokens sent
++ Handles messaging by using web sockets. Message sent to server from client then sends to all clients connected to server
++ Handles connection to MongoDB
+
+## Data Models
 ---
 
 + #### User Model
@@ -59,11 +67,7 @@ This project was built for a 2nd semester class project. I used React.js, Expres
 |
 |
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
-## REST API Guide
+## REST API
 ---
 
 + #### Login 
@@ -110,23 +114,7 @@ This project was built for a 2nd semester class project. I used React.js, Expres
 
 ## To Do List
 
-+ Messages dashboard messages reset when a new user connects while you are logged in on message dashboard
++ Adding and Deleting friends functionality
 + Private chat functionality
-	+ Active User list side bar changes chat when you click user
-	+ Need to add socket.io to emit private messages
-
-colors:
-
-	primary => 
-	rgba(255, 102, 102, 1)
-
-	shade =>
-	
-
-	secondary => 
- 	rgba(83, 66, 146, 1);
-	other => 
-		rgba(245, 251, 71, 1);
-
-	bg => 
-	rgba(235, 235, 235, 1);
+	+ Active User list side bar changes/makes a new chat when you click and 'activerUser'
++ Having Messages stored in MongoDB rather than browser

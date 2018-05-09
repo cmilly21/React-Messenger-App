@@ -7,7 +7,7 @@ module.exports = {
 		let name = req.body.name;
 		let password = req.body.password;
 
-		console.log(req.body);
+		name.toLowerCase();
 
 		User.findOne({ name: name }, (err, user) => {
 			if (err) return res.status(500).json({ auth: false, message: 'There was a problem with the server.', errMsg: err });
